@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ericsson.nms.mediation.component</groupId>
+		<artifactId>ci-association-handler-code</artifactId>
+		<version>1.0.74-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ERICciassociationhandlercode_CXP9030551</artifactId>
+	<packaging>${rpm.packaging}</packaging>
+	<name>[${project.artifactId}]</name>
+
+	<properties>
+		<com.ericsson.oss.rpm.architecture>noarch</com.ericsson.oss.rpm.architecture>
+		<install.path>/opt/ericsson/com.ericsson.nms.mediation.component.flow.handler.ciassociation</install.path>
+		<publish_artifact>true</publish_artifact>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-jar</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-ear</artifactId>
+			<version>${project.parent.version}</version>
+			<type>ear</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>rpm-maven-plugin</artifactId>
+				<configuration>
+					<mappings>
+						<mapping>
+							<directory>${install.path}</directory>
+							<filemode>775</filemode>
+							<username>litp_jboss</username>
+							<groupname>litp_jboss</groupname>
+							<configuration>false</configuration>
+							<directoryIncluded>true</directoryIncluded>
+							<recurseDirectories>false</recurseDirectories>
+							<dependency>
+								<includes>
+									<include>${project.groupId}:${project.parent.artifactId}-ear</include>
+								</includes>
+							</dependency>
+						</mapping>
+					</mappings>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+</project>
